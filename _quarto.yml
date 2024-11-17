@@ -6,11 +6,11 @@ execute:
   echo: true
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "Data Analysis and Visualizations of Global Carbon Emissions"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - Samhitha Narasipura (sn3145)
+    - Sstuti Deepak Mehra (sdm2194)
+  repo-url: https://github.com/SamhithaN/Global-Carbon-Emissions
   date: today
   page-footer:
     right: |
@@ -25,7 +25,7 @@ book:
 
 format:
   html:
-    theme: cosmo
+    theme: lumen
     code-fold: true
 
 
