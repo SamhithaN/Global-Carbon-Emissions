@@ -2,4 +2,35 @@
 
 ## Description
 
+### Data Sources
+Website: The World Bank Group
+
+To analyze country-wise CO<sub>2</sub> emissions, various metrics that influence and correlate with CO<sub>2</sub> release have been considered. The dataset includes information on forest area percentage, fossil fuel consumption percentage, trade metrics (imports and exports), livestock production, and air pollution levels. Additionally, data on countries' income levels, GDP, and renewable energy usage has been gathered to examine the factors and trends contributing to CO<sub>2</sub> emissions.
+
+The raw data from the World Bank Group website was downloaded as CSV files.
+
+**Data Links:**
+
+- [CO<sub>2</sub> Emissions](https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5) (megatonnes)
+- [Forest Area](https://data.worldbank.org/indicator/AG.LND.FRST.ZS) (% of land area)
+- [Fossil Fuel Energy Consumption](https://data.worldbank.org/indicator/EG.USE.COMM.FO.ZS) (% of total energy consumption by country)
+- [Imports of Goods and Services](https://data.worldbank.org/indicator/BM.GSR.GNFS.CD) (US dollars)
+- [Exports of Goods and Services](https://data.worldbank.org/indicator/BX.GSR.TOTL.CD) (US dollars)
+- [Livestock Production Index](https://data.worldbank.org/indicator/AG.PRD.LVSK.XD) (Baseline Index: 100)
+- [Air Pollution](https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3) (micrograms/m<sup>3</sup>)
+- [GDP](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD) (US dollars)
+- [Renewable Energy Consumption](https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS) (% of total energy consumption by country)
+- **Income Level**: Obtained from the zip folder as a separate CSV file after downloading the data (Low, Lower middle, Upper middle, High)
+
+
+### Data Preprocessing
+After importing the data:
+
+- The columns are filtered to only include data from years 1990 - 2020
+- The data frames are converted to long format
+- All metrics data frames are joined on ‘Country Codes’ to obtain the final dataset
+- The data frame is exported as a CSV file
+
+[Link to Preprocessing script on Python](Data%20Preprocessing.html)
+
 ## Missing value analysis

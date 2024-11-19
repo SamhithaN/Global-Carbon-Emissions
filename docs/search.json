@@ -20,6 +20,16 @@
     ]
   },
   {
+    "objectID": "data.html#description",
+    "href": "data.html#description",
+    "title": "2  Data",
+    "section": "",
+    "text": "2.1.1 Data Sources\nWebsite: The World Bank Group\nTo analyze country-wise CO2 emissions, various metrics that influence and correlate with CO2 release have been considered. The dataset includes information on forest area percentage, fossil fuel consumption percentage, trade metrics (imports and exports), livestock production, and air pollution levels. Additionally, data on countries’ income levels, GDP, and renewable energy usage has been gathered to examine the factors and trends contributing to CO2 emissions.\nThe raw data from the World Bank Group website was downloaded as CSV files.\nData Links:\n\nCO2 Emissions (megatonnes)\nForest Area (% of land area)\nFossil Fuel Energy Consumption (% of total energy consumption by country)\nImports of Goods and Services (US dollars)\nExports of Goods and Services (US dollars)\nLivestock Production Index (Baseline Index: 100)\nAir Pollution (micrograms/m3)\nGDP (US dollars)\nRenewable Energy Consumption (% of total energy consumption by country)\nIncome Level: Obtained from the zip folder as a separate CSV file after downloading the data (Low, Lower middle, Upper middle, High)\n\n\n\n2.1.2 Data Preprocessing\nAfter importing the data:\n\nThe columns are filtered to only include data from years 1990 - 2020\nThe data frames are converted to long format\nAll metrics data frames are joined on ‘Country Codes’ to obtain the final dataset\nThe data frame is exported as a CSV file\n\nLink to Preprocessing script on Python",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
+    ]
+  },
+  {
     "objectID": "data.html#missing-value-analysis",
     "href": "data.html#missing-value-analysis",
     "title": "2  Data",
