@@ -54,3 +54,30 @@ After importing the data:
 [Link to Preprocessing script on Python](data_preprocessing/Data_Preprocessing.html)
 
 ## Missing value analysis
+```{r}
+emission_data <- read.csv('emission_analysis.csv')
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+missing_data_summary <- emission_data |>
+  group_by(Country.Name) |>
+  summarise(missing_count = sum(is.na(Fossil_Fuel_Energy) + is.na(Air_Pollution) + is.na(GDP) + is.na(Exports) + is.na(Forest_Area) + is.na(Imports) + is.na(Livestock_Production) + is.na(Renewable_Energy)))
+
+top_missing_countries <- missing_data_summary |>
+  arrange(desc(missing_count)) |>
+  head(15)
+
+ggplot(top_missing_countries, aes(x = reorder(Country.Name, -missing_count), y = missing_count)) +
+  geom_bar(stat = "identity", fill = "lightgreen") +
+  labs(title = "Top 15 Countries with the Most Missing Values",
+       x = "Country",
+       y = "Number of Missing Values") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+The above graph displays the top 15 countries containing the most amount of missing values in the dataset. It shows that South Sudan tops the chart with the highest number of missing values which is slightly above 150. There is a noticeable drop after the first four countries. Countries such as Tuvalu, Grenada, Maldives, and Sao Tome have the fewest missing values among the top 15 but still show a notable amount of missing data.
+
+The missing data from these countries could stem from a lack of infrastructure to measure, collect, or report the data effectively. Additionally, inconsistencies may arise due to the use of different methodologies or units of measurement, which could result in data being recorded as missing. In the data analysis section of the project, the correlation between these countries' high levels of missing data and their real impact on global carbon emissions will be examined.

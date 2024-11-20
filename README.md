@@ -1,3 +1,7 @@
-# Exploratory Data Analysis and Visualization Final Project
+# Data Analysis and Visualization of Global Carbon Emissions
 
-Data Analysis and Visualization of Global Carbon Emissions
+  This project aims to produce a comprehensive analysis of global carbon emissions through identifying countries that contribute to the emissions and examining the factors that drive these trends. Carbon emissions are one of the leading causes of climate change and global warming which are some of the pressing environmental challenges currently. We seek to answer critical questions about the sources and patterns of anthropogenic carbon emissions, investigating how energy consumption, trade, air quality, deforestation, and economic development contribute to the overall emissions of different nations over a range of twenty years. 
+
+  Our goal is to provide valuable insights that can guide policy makers, researchers, and environmental scientists in their efforts to address the climate crisis. Hopefully, the findings of this analysis will help us better understand the requirement for targeted policies to reduce carbon footprints, promote sustainable energy alternatives, and implement regulatory measures that can limit the environmental impact of high-emission nations.
+  
+  The data to analyze country-wise CO<sub>2</sub> emissions has been sourced from the World Bank Group. Various metrics that influence and correlate with CO<sub>2</sub> release have been considered. The dataset includes information on forest area percentage, fossil fuel consumption percentage, trade metrics (imports and exports), livestock production, and air pollution levels. Additionally, data on countries' income levels, GDP, and renewable energy usage has been gathered to examine the factors and trends contributing to CO<sub>2</sub> emissions. The raw data from the World Bank Group website was downloaded as CSV files.
