@@ -11,16 +11,16 @@ The raw data from the World Bank Group website was downloaded as CSV files.
 
 **Data Links and Collection:**
 
-- [CO<sub>2</sub> Emissions](https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5) (megatonnes)
-- [Forest Area](https://data.worldbank.org/indicator/AG.LND.FRST.ZS) (% of land area)
-- [Fossil Fuel Energy Consumption](https://data.worldbank.org/indicator/EG.USE.COMM.FO.ZS) (% of total energy consumption by country)
-- [Imports of Goods and Services](https://data.worldbank.org/indicator/BM.GSR.GNFS.CD) (US dollars)
-- [Exports of Goods and Services](https://data.worldbank.org/indicator/BX.GSR.TOTL.CD) (US dollars)
-- [Livestock Production Index](https://data.worldbank.org/indicator/AG.PRD.LVSK.XD) (Baseline Index: 100)
-- [Air Pollution](https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3) (micrograms/m<sup>3</sup>)
-- [GDP](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD) (US dollars)
-- [Renewable Energy Consumption](https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS) (% of total energy consumption by country)
-- **Income Level**: Obtained from the zip folder as a separate CSV file after downloading the data (Low, Lower middle, Upper middle, High)
+- [CO<sub>2</sub> Emissions](https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5)
+- [Forest Area](https://data.worldbank.org/indicator/AG.LND.FRST.ZS)
+- [Fossil Fuel Energy Consumption](https://data.worldbank.org/indicator/EG.USE.COMM.FO.ZS)
+- [Imports of Goods and Services](https://data.worldbank.org/indicator/BM.GSR.GNFS.CD)
+- [Exports of Goods and Services](https://data.worldbank.org/indicator/BX.GSR.TOTL.CD)
+- [Livestock Production Index](https://data.worldbank.org/indicator/AG.PRD.LVSK.XD)
+- [Air Pollution](https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3)
+- [GDP](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD)
+- [Renewable Energy Consumption](https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS)
+- **Income Level**: Obtained from the zip folder as a separate CSV file after downloading the data
 
 ### Data Format
 - Carbon Emissions: A measure of annual emissions of carbon dioxide (CO2) in megatonnes, one of the six Kyoto greenhouse gases (GHG) from 1970 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.
@@ -71,7 +71,7 @@ top_missing_countries <- missing_data_summary |>
   head(15)
 
 ggplot(top_missing_countries, aes(x = reorder(Country.Name, -missing_count), y = missing_count)) +
-  geom_bar(stat = "identity", fill = "lightgreen") +
+  geom_bar(stat = "identity", fill = "darkgreen") +
   labs(title = "Top 15 Countries with the Most Missing Values",
        x = "Country",
        y = "Number of Missing Values") +
@@ -81,3 +81,12 @@ ggplot(top_missing_countries, aes(x = reorder(Country.Name, -missing_count), y =
 The above graph displays the top 15 countries containing the most amount of missing values in the dataset. It shows that South Sudan tops the chart with the highest number of missing values which is slightly above 150. There is a noticeable drop after the first four countries. Countries such as Tuvalu, Grenada, Maldives, and Sao Tome have the fewest missing values among the top 15 but still show a notable amount of missing data.
 
 The missing data from these countries could stem from a lack of infrastructure to measure, collect, or report the data effectively. Additionally, inconsistencies may arise due to the use of different methodologies or units of measurement, which could result in data being recorded as missing. In the data analysis section of the project, the correlation between these countries' high levels of missing data and their real impact on global carbon emissions will be examined.
+
+```{r}
+library(redav)
+emission_data_missing <- emission_data[!complete.cases(emission_data), ]
+plot_missing(emission_data_missing, max_cols = 8, num_char = 3, percent = FALSE)
+```
+This graph explains the different patterns of missing data among the metrics on which CO<sub>2</sub> emissions depend on. It also quantifies these patterns and the number of missing rows for each metric using a bar plot.
+
+From the middle graph, we can observe that the pattern where only Fossil Fuels Consumption data is missing while all other data is available is the most frequent with more than 1500 occurrences. This could be because some countries do not have the infrastructure to record this metric or do not report their fossil fuel energy consumption. This fact is also confirmed by the bar plot above which shows that the Fossil Fuels Consumption feature has the most amount of missing values. The second most common pattern with a frequency of almost 500 is the Fossil Fuels Consumption, Imports and Exports data missing while all other features' data is available. The rest of the patterns have a frequency less than 200.
