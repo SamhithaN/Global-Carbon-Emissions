@@ -152,7 +152,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description"><span class="header-section-number">2.1</span> Description</a>
   <ul class="collapse">
   <li><a href="#data-sources" id="toc-data-sources" class="nav-link" data-scroll-target="#data-sources"><span class="header-section-number">2.1.1</span> Data Sources</a></li>
-  <li><a href="#data-preprocessing" id="toc-data-preprocessing" class="nav-link" data-scroll-target="#data-preprocessing"><span class="header-section-number">2.1.2</span> Data Preprocessing</a></li>
+  <li><a href="#data-format" id="toc-data-format" class="nav-link" data-scroll-target="#data-format"><span class="header-section-number">2.1.2</span> Data Format</a></li>
+  <li><a href="#data-preprocessing" id="toc-data-preprocessing" class="nav-link" data-scroll-target="#data-preprocessing"><span class="header-section-number">2.1.3</span> Data Preprocessing</a></li>
   </ul></li>
   <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a></li>
   </ul>
@@ -187,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Website: The World Bank Group</p>
 <p>To analyze country-wise CO<sub>2</sub> emissions, various metrics that influence and correlate with CO<sub>2</sub> release have been considered. The dataset includes information on forest area percentage, fossil fuel consumption percentage, trade metrics (imports and exports), livestock production, and air pollution levels. Additionally, data on countries’ income levels, GDP, and renewable energy usage has been gathered to examine the factors and trends contributing to CO<sub>2</sub> emissions.</p>
 <p>The raw data from the World Bank Group website was downloaded as CSV files.</p>
-<p><strong>Data Links:</strong></p>
+<p><strong>Data Links and Collection:</strong></p>
 <ul>
 <li><a href="https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5">CO<sub>2</sub> Emissions</a> (megatonnes)</li>
 <li><a href="https://data.worldbank.org/indicator/AG.LND.FRST.ZS">Forest Area</a> (% of land area)</li>
@@ -201,8 +202,23 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Income Level</strong>: Obtained from the zip folder as a separate CSV file after downloading the data (Low, Lower middle, Upper middle, High)</li>
 </ul>
 </section>
-<section id="data-preprocessing" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="data-preprocessing"><span class="header-section-number">2.1.2</span> Data Preprocessing</h3>
+<section id="data-format" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="data-format"><span class="header-section-number">2.1.2</span> Data Format</h3>
+<ul>
+<li><p>Carbon Emissions: A measure of annual emissions of carbon dioxide (CO2) in megatonnes, one of the six Kyoto greenhouse gases (GHG) from 1970 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Forest Area: An annual percentage metric of forest area land, excluding agricultural production systems, from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Fossil Fuel Energy Consumption: An annual percentage metric of Fossil fuel (comprises coal, oil, petroleum, and natural gas products) consumption from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Imports of Goods and Services: An annual measure of goods and services transacted between residents of a country and the rest of the world in US dollars from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Exports of Goods and Services: An annual measure of goods exports, service exports and primary income receipts in US dollars from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Livestock Production Index: An annual measure of the Livestock production index that includes meat and milk from all sources, dairy products such as cheese, and eggs, honey, raw silk, wool, and hides and skins from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Air Pollution: A measure of the mean annual exposure (micrograms per cubic meter) of a nation’s population to concentrations of suspended particles measuring less than 2.5 microns in aerodynamic diameter, which are capable of causing severe health damage. Data has been collected from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>GDP: The annual gross domestic product in US dollars from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Renewable Energy Consumption: The share of renewables energy in total final energy consumption measured by the percentage of total energy consumption from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.</p></li>
+<li><p>Income Level: A dataset indicating the income level of countries as High, Low, Upper Middle, and Lower Middle income for 265 countries and regions. The dataset contains the Conutry Code, Region, Income Group, Special Notes and Table Name.</p></li>
+</ul>
+</section>
+<section id="data-preprocessing" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="data-preprocessing"><span class="header-section-number">2.1.3</span> Data Preprocessing</h3>
 <p>After importing the data:</p>
 <ul>
 <li>The columns are filtered to only include data from years 1990 - 2020</li>
@@ -210,7 +226,7 @@ ul.task-list li input[type="checkbox"] {
 <li>All metrics data frames are joined on ‘Country Codes’ to obtain the final dataset</li>
 <li>The data frame is exported as a CSV file</li>
 </ul>
-<p><a href="Data Preprocessing.html">Link to Preprocessing script on Python</a></p>
+<p><a href="data_preprocessing/Data_Preprocessing.html">Link to Preprocessing script on Python</a></p>
 </section>
 </section>
 <section id="missing-value-analysis" class="level2" data-number="2.2">

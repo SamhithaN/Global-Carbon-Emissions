@@ -1,1 +1,6 @@
 # Introduction
+
+  This project aims to produce a comprehensive analysis of global carbon emissions through identifying countries that contribute to the emissions and examining the factors that drive these trends. Carbon emissions are one of the leading causes of climate change and global warming which are some of the pressing environmental challenges currently. We seek to answer critical questions about the sources and patterns of anthropogenic carbon emissions, investigating how energy consumption, trade, air quality, deforestation, and economic development contribute to the overall emissions of different nations over a range of twenty years. 
+
+  Our goal is to provide valuable insights that can guide policy makers, researchers, and environmental scientists in their efforts to address the climate crisis. Hopefully, the findings of this analysis will help us better understand the requirement for targeted policies to reduce carbon footprints, promote sustainable energy alternatives, and implement regulatory measures that can limit the environmental impact of high-emission nations.
+
