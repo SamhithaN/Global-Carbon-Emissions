@@ -85,7 +85,9 @@ The missing data from these countries could stem from a lack of infrastructure t
 ```{r}
 library(redav)
 emission_data_missing <- emission_data[!complete.cases(emission_data), ]
-plot_missing(emission_data_missing, max_cols = 8, num_char = 3, percent = FALSE)
+plot_missing(emission_data_missing, max_cols = 8, num_char = 3, percent = FALSE) +
+  labs(title = "Missing Values Pattern Analysis") +
+  theme(plot.title = element_text(hjust = 2, vjust = 33.5))
 ```
 This graph explains the different patterns of missing data among the metrics on which CO<sub>2</sub> emissions depend on. It also quantifies these patterns and the number of missing rows for each metric using a bar plot.
 

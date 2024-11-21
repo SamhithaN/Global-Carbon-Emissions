@@ -224,16 +224,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The raw data from the World Bank Group website was downloaded as CSV files.</p>
 <p><strong>Data Links and Collection:</strong></p>
 <ul>
-<li><a href="https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5">CO<sub>2</sub> Emissions</a> (megatonnes)</li>
-<li><a href="https://data.worldbank.org/indicator/AG.LND.FRST.ZS">Forest Area</a> (% of land area)</li>
-<li><a href="https://data.worldbank.org/indicator/EG.USE.COMM.FO.ZS">Fossil Fuel Energy Consumption</a> (% of total energy consumption by country)</li>
-<li><a href="https://data.worldbank.org/indicator/BM.GSR.GNFS.CD">Imports of Goods and Services</a> (US dollars)</li>
-<li><a href="https://data.worldbank.org/indicator/BX.GSR.TOTL.CD">Exports of Goods and Services</a> (US dollars)</li>
-<li><a href="https://data.worldbank.org/indicator/AG.PRD.LVSK.XD">Livestock Production Index</a> (Baseline Index: 100)</li>
-<li><a href="https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3">Air Pollution</a> (micrograms/m<sup>3</sup>)</li>
-<li><a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD">GDP</a> (US dollars)</li>
-<li><a href="https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS">Renewable Energy Consumption</a> (% of total energy consumption by country)</li>
-<li><strong>Income Level</strong>: Obtained from the zip folder as a separate CSV file after downloading the data (Low, Lower middle, Upper middle, High)</li>
+<li><a href="https://data.worldbank.org/indicator/EN.GHG.CO2.MT.CE.AR5">CO<sub>2</sub> Emissions</a></li>
+<li><a href="https://data.worldbank.org/indicator/AG.LND.FRST.ZS">Forest Area</a></li>
+<li><a href="https://data.worldbank.org/indicator/EG.USE.COMM.FO.ZS">Fossil Fuel Energy Consumption</a></li>
+<li><a href="https://data.worldbank.org/indicator/BM.GSR.GNFS.CD">Imports of Goods and Services</a></li>
+<li><a href="https://data.worldbank.org/indicator/BX.GSR.TOTL.CD">Exports of Goods and Services</a></li>
+<li><a href="https://data.worldbank.org/indicator/AG.PRD.LVSK.XD">Livestock Production Index</a></li>
+<li><a href="https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3">Air Pollution</a></li>
+<li><a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD">GDP</a></li>
+<li><a href="https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS">Renewable Energy Consumption</a></li>
+<li><strong>Income Level</strong>: Obtained from the zip folder as a separate CSV file after downloading the data</li>
 </ul>
 </section>
 <section id="data-format" class="level3" data-number="2.1.2">
@@ -303,7 +303,7 @@ Attaching package: 'dplyr'</code></pre>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">15</span>)</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_missing_countries, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country.Name, <span class="sc">-</span>missing_count), <span class="at">y =</span> missing_count)) <span class="sc">+</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"lightgreen"</span>) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"darkgreen"</span>) <span class="sc">+</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 15 Countries with the Most Missing Values"</span>,</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Country"</span>,</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Missing Values"</span>) <span class="sc">+</span></span>
@@ -320,6 +320,25 @@ Attaching package: 'dplyr'</code></pre>
 </div>
 <p>The above graph displays the top 15 countries containing the most amount of missing values in the dataset. It shows that South Sudan tops the chart with the highest number of missing values which is slightly above 150. There is a noticeable drop after the first four countries. Countries such as Tuvalu, Grenada, Maldives, and Sao Tome have the fewest missing values among the top 15 but still show a notable amount of missing data.</p>
 <p>The missing data from these countries could stem from a lack of infrastructure to measure, collect, or report the data effectively. Additionally, inconsistencies may arise due to the use of different methodologies or units of measurement, which could result in data being recorded as missing. In the data analysis section of the project, the correlation between these countries’ high levels of missing data and their real impact on global carbon emissions will be examined.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(redav)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>emission_data_missing <span class="ot">&lt;-</span> emission_data[<span class="sc">!</span><span class="fu">complete.cases</span>(emission_data), ]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(emission_data_missing, <span class="at">max_cols =</span> <span class="dv">8</span>, <span class="at">num_char =</span> <span class="dv">3</span>, <span class="at">percent =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Missing Values Pattern Analysis"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">2</span>, <span class="at">vjust =</span> <span class="fl">33.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="data_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This graph explains the different patterns of missing data among the metrics on which CO<sub>2</sub> emissions depend on. It also quantifies these patterns and the number of missing rows for each metric using a bar plot.</p>
+<p>From the middle graph, we can observe that the pattern where only Fossil Fuels Consumption data is missing while all other data is available is the most frequent with more than 1500 occurrences. This could be because some countries do not have the infrastructure to record this metric or do not report their fossil fuel energy consumption. This fact is also confirmed by the bar plot above which shows that the Fossil Fuels Consumption feature has the most amount of missing values. The second most common pattern with a frequency of almost 500 is the Fossil Fuels Consumption, Imports and Exports data missing while all other features’ data is available. The rest of the patterns have a frequency less than 200.</p>
 
 
 </section>
