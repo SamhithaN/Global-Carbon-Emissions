@@ -14578,7 +14578,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -14596,7 +14596,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># metrics dataframes</span>
@@ -14625,7 +14625,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[14]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">filter_convert_long</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="n">new_column_name</span><span class="p">,</span> <span class="n">start_year</span><span class="o">=</span><span class="mi">1990</span><span class="p">,</span> <span class="n">end_year</span><span class="o">=</span><span class="mi">2020</span><span class="p">):</span>
@@ -14650,7 +14650,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># filtering to retain data from 1990 - 2020 only</span>
@@ -14677,14 +14677,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_air_pollution</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_country_codes</span><span class="p">,</span> <span class="n">df_air_pollution</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">'Country Code'</span><span class="p">)</span>
 
 
 <span class="n">dfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_air_pollution</span><span class="p">,</span> <span class="n">df_exports</span><span class="p">,</span> <span class="n">df_forest_area</span><span class="p">,</span> <span class="n">df_fossil_fuels</span><span class="p">,</span>
-       <span class="n">df_GDP</span><span class="p">,</span> <span class="n">df_imports</span><span class="p">,</span> <span class="n">df_livestock_production</span><span class="p">,</span> <span class="n">df_renewable_energy</span><span class="p">]</span>
+       <span class="n">df_GDP</span><span class="p">,</span> <span class="n">df_imports</span><span class="p">,</span> <span class="n">df_livestock_production</span><span class="p">,</span> <span class="n">df_renewable_energy</span><span class="p">,</span> <span class="n">df_emissions</span><span class="p">]</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">merged_df</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">'Country Code'</span><span class="p">,</span> <span class="s1">'Year'</span><span class="p">],</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s1">''</span><span class="p">,</span> <span class="s1">'_df2'</span><span class="p">)),</span> <span class="n">dfs</span><span class="p">)</span>
@@ -14704,7 +14704,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged_df</span>
@@ -14725,7 +14725,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
 
 
 
@@ -14759,6 +14759,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <th>Imports</th>
       <th>Livestock_Production</th>
       <th>Renewable_Energy</th>
+      <th>CO2_Emissions</th>
     </tr>
   </thead>
   <tbody>
@@ -14775,6 +14776,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>NaN</td>
       <td>67.11</td>
       <td>23.0</td>
+      <td>2.8965</td>
     </tr>
     <tr>
       <th>1</th>
@@ -14789,6 +14791,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>NaN</td>
       <td>68.55</td>
       <td>23.7</td>
+      <td>2.7663</td>
     </tr>
     <tr>
       <th>2</th>
@@ -14803,6 +14806,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>NaN</td>
       <td>68.15</td>
       <td>27.4</td>
+      <td>1.6826</td>
     </tr>
     <tr>
       <th>3</th>
@@ -14817,6 +14821,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>NaN</td>
       <td>72.09</td>
       <td>28.5</td>
+      <td>1.6083</td>
     </tr>
     <tr>
       <th>4</th>
@@ -14831,9 +14836,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>NaN</td>
       <td>79.06</td>
       <td>30.1</td>
+      <td>1.5358</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -14859,6 +14866,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>6.426700e+09</td>
       <td>103.85</td>
       <td>81.7</td>
+      <td>10.9391</td>
     </tr>
     <tr>
       <th>5979</th>
@@ -14873,6 +14881,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>5.340673e+09</td>
       <td>101.98</td>
       <td>82.0</td>
+      <td>10.2427</td>
     </tr>
     <tr>
       <th>5980</th>
@@ -14887,6 +14896,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>9.695644e+09</td>
       <td>102.21</td>
       <td>79.7</td>
+      <td>11.8656</td>
     </tr>
     <tr>
       <th>5981</th>
@@ -14901,6 +14911,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>6.165817e+09</td>
       <td>106.68</td>
       <td>81.0</td>
+      <td>10.8534</td>
     </tr>
     <tr>
       <th>5982</th>
@@ -14915,10 +14926,11 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>5.381792e+09</td>
       <td>105.66</td>
       <td>84.1</td>
+      <td>8.8251</td>
     </tr>
   </tbody>
 </table>
-<p>5983 rows × 11 columns</p>
+<p>5983 rows × 12 columns</p>
 </div>
 </div>
 
@@ -14933,7 +14945,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">merged_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'emission_analysis.csv'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
