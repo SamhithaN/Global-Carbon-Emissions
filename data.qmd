@@ -59,6 +59,7 @@ emission_data <- read.csv('emission_analysis.csv')
 ```
 
 ```{r}
+#| warning: false
 library(dplyr)
 library(ggplot2)
 
