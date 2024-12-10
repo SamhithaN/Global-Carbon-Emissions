@@ -43,3 +43,134 @@ In all facets, we observe the same order of CO<sub>2</sub> emission amounts with
 The amount of CO<sub>2</sub> emissions in Asia steadily increased each decade and reached an alarming 200k megatonnes, which indicates that Asia plays a huge role in pollution.
 However, the amount of CO<sub>2</sub> emissions in Europe decreased over each decade, having its highest emissions in 1990-2000. This shows a slow down in CO<sub>2</sub> emission activity in this continent.
 The amount of CO<sub>2</sub> emissions in Africa slightly increased each decade, while they remained almost the same in the Americas and Oceania from 1990-2020.
+
+Creating a Biplot to understand relationships between contributing factors
+```{r}
+#| warning: false
+#| fig.height: 8
+library(redav)
+
+emissions_df_g2 <- emissions_df
+emissions_df_g2[is.na(emissions_df)] <- 0
+draw_biplot(emissions_df_g2, points = FALSE) +
+  labs(title = "Biplot of CO"[2] ~ "Emissions Data")
+```
+
+Analyzing the Trend of CO<sub>2</sub> Emissions and Forest Area over 30 Years
+```{r}
+
+# Countries in the Amazon Rainforest: Brazil, Peru, Bolivia, Ecuador, Colombia, Venezuela, French Guiana, Guyana, Suriname
+# Source: https://www.nature.org/en-us/get-involved/how-to-help/places-we-protect/amazon-rainforest/
+
+amazon_countries <- c("BRA", "PER", "BOL", "ECU", "COL", "VEN", "GUF", "GUY", "SUR")
+
+emissions_df_amazon <- emissions_df|> 
+  filter(Country.Code %in% amazon_countries)
+
+# We do not have data for French Guiana so we will go ahead and account for the rest of the 8 countries in the Amazon Rainforest
+# The filtered dataset does not have missing values for Forest Area and CO2 Emissions
+
+# aggregating CO2 emissions and Forest Area by Year
+aggregated_data <- emissions_df_amazon |>
+  group_by(Year) |>
+  summarize(
+    Total_CO2 = sum(CO2_Emissions),
+    Total_Forest_Area = sum(Forest_Area)
+  )
+
+# Scaling the data
+aggregated_data <- aggregated_data |>
+  mutate(
+    Scaled_CO2 = (Total_CO2 - min(Total_CO2)) / (max(Total_CO2) - min(Total_CO2)),
+    Scaled_Forest_Area = (Total_Forest_Area - min(Total_Forest_Area)) / (max(Total_Forest_Area) - min(Total_Forest_Area))
+  )
+
+ggplot(aggregated_data, aes(x = Year)) +
+  geom_line(aes(y = Scaled_CO2, color = "CO2 Emissions (Mt)")) +
+  geom_line(aes(y = Scaled_Forest_Area, color = "Forest Area (%)")) +
+  scale_color_manual(values = c("CO2 Emissions (Mt)" = "red", "Forest Area (%)" = "#228B22")) +
+  labs(
+    title = "CO"[2] ~ "Emissions and Forest Area Trend in the Amazon Rainforest (1990-2020)",
+    x = "Year",
+    y = "Scaled Values",
+    color = "Legend"
+  ) +
+  theme(legend.position = "right")
+
+```
+
+Determining if Livestock Production Contributes to CO<sub>2</sub> emissions
+```{r}
+# It is being studied that livestock production increases greenhouse gas emissions
+# Source: https://sentientmedia.org/how-does-livestock-affect-climate-change/
+
+# Aggregating CO2 Emissions and Livestock Production by Country
+emissions_df_livestock <- emissions_df |>
+  group_by(Country.Name) |>
+  summarize(
+    Total_CO2 = sum(CO2_Emissions),
+    Total_Livestock = sum(Livestock_Production)
+  )
+
+emissions_df_livestock <- na.omit(emissions_df_livestock)
+
+# Obtaining the top 3 and bottom 3 countries in accordance with livestock production
+sorted_emissions <- emissions_df_livestock |>
+  arrange(desc(Total_Livestock))
+
+top_3_countries <- sorted_emissions |>
+  slice_head(n = 3)
+
+bottom_3_countries <- sorted_emissions |>
+  slice_tail(n = 3)
+
+combined_df <- bind_rows(top_3_countries |> mutate(Group = "Countries with Highest Production"),
+                         bottom_3_countries |> mutate(Group = "Countries with Lowest Production"))
+
+ggplot(combined_df, aes(x = Total_Livestock, y = Total_CO2, color = Group)) +
+  geom_point(size = 3) +
+  geom_text(aes(label = Country.Name), vjust = -1, size = 3, show.legend = FALSE) +
+  scale_color_manual(values = c("Countries with Highest Production" = "darkgreen", "Countries with Lowest Production" = "darkorange")) +
+  labs(
+    title = "CO"[2] ~ "Emissions over Countries with Lowest and Highest Livestock Production",
+    x = "Total Livestock Production",
+    y = "Total CO2 Emissions (Mt)",
+    color = "Group"
+  ) +
+  theme(legend.position = "bottom")
+
+```
+
+Analyzing the Trend of CO<sub>2</sub> Emissions and Air Pollution over 30 Years
+```{r}
+emissions_df_pollution <- emissions_df
+
+emissions_df_pollution$CO2_Emissions[is.na(emissions_df_pollution$CO2_Emissions)] <- 0
+emissions_df_pollution$Air_Pollution[is.na(emissions_df_pollution$Air_Pollution)] <- 0
+
+aggregated_data <- emissions_df_pollution |>
+  group_by(Year) |>
+  summarize(
+    Total_CO2 = sum(CO2_Emissions),
+    Total_Pollution = sum(Air_Pollution)
+  )
+
+aggregated_data <- aggregated_data |>
+  mutate(
+    Scaled_CO2 = (Total_CO2 - min(Total_CO2)) / (max(Total_CO2) - min(Total_CO2)),
+    Scaled_Pollution = (Total_Pollution - min(Total_Pollution)) / (max(Total_Pollution) - min(Total_Pollution))
+  )
+
+ggplot(aggregated_data, aes(x = Year)) +
+  geom_line(aes(y = Scaled_CO2, color = "CO2 Emissions (Mt)")) +
+  geom_line(aes(y = Scaled_Pollution, color = "Air Pollution (µg/m³)")) +
+  scale_color_manual(values = c("CO2 Emissions (Mt)" = "red", "Air Pollution (µg/m³)" = "darkblue")) +
+  labs(
+    title = "Worldwide CO"[2] ~ "Emissions and Air Pollution Trend (1990-2020)",
+    x = "Year",
+    y = "Scaled Values",
+    color = "Legend"
+  ) +
+  theme(legend.position = "right")
+
+```
