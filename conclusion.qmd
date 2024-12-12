@@ -1,8 +1,16 @@
 # Conclusion
 
+From this study we analyzed how different factors such as fossil fuel consumption, percentage of forest area, and others affect CO<sub>2</sub> emissions worldwide. Using data from the World Bank we were able to analyze country-wise as well as year-wise emissions, making our analysis comprehensive and relevant to understanding how our earth has experienced climate change over the years.
 
-write about how in 2020 we observed a decline in co2
+These are the main conclusions we have drawn from our analysis:
+
+- The world observes huge global disparities in carbon emissions, with industrialized and manufacturing-heavy nations like China and the US contributing the most, while developing nations contributing much lesser.
+- The continent of Asia has been the highest contributor to global CO<sub>2</sub> emissions from 1990-2020.
+- Features such as GDP and Measure of Exports are closely related to the amount of CO<sub>2</sub> emissions for a country.
+- A strong positive correlation between trade volume and CO₂ emissions is observed, with exports contributing signficantly more due to energy-intensive processes, while imports show steadier increase in emissions.
+- The Amazon Rainforest has witnessed a devastating decrease in % forest area from the years 1990-2020 ultimately leading to a rise in CO<sub>2</sub> emissions.
+- Although livestock production does contribute to the release of greenhouse gases, CO<sub>2</sub> is not a primary pollutant from this activity.
+- While studying the relationship between fossil fuel consumption and CO<sub>2</sub> emissions, we found a steep drop in both for the year 2015. This is because China decreased their coal consumption in 2015 marking a historic drop in fossil fuel consumption globally!
 
 
-
-
+The 2020 lockdown reminds us how reduced human activity can rapidly impact the planet, emphasizing the interconnectedness of our actions and the environment. Many countries, especially small island nations, are highly vulnerable to the impacts of increasing carbon emissions, such as sea-level rise and extreme weather events. Despite their lower emissions, they may bear the brunt of the climate crisis and might not have the resources to fight due to their already low GDPs. It is imperative to adopt sustainable practices, invest in renewable energy sources, and implement policies that lower carbon emissions. Through collective efforts can we mitigate the impacts of climate change and safeguard the planet for future generations.
