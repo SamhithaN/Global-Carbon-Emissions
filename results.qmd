@@ -1,6 +1,4 @@
 # Results
-
-### Continent-Wise CO<sub>2</sub> Emissions Over 3 Decades
 ```{r}
 #| warning: false
 
@@ -8,8 +6,50 @@ library(countrycode)
 library(dplyr)
 library(ggplot2)
 library(forcats)
+library(redav)
+library(tidyverse)
+library(ggridges)
 
 emissions_df = read.csv("emission_analysis.csv")
+```
+
+
+### Time Series Analysis of Global CO<sub>2</sub> Emissions from 1990 to 2020
+```{r}
+emissions_ts <- emissions_df |> 
+  select(Year, CO2_Emissions) |> 
+  group_by(Year) |> 
+  summarize(Avg = mean(CO2_Emissions, na.rm = TRUE))
+
+print(emissions_ts)
+ggplot(emissions_ts, aes(x = Year, y = Avg)) +
+  geom_bar(stat = "identity", fill = "skyblue", color = "black") +
+  geom_smooth(aes(y = Avg), color = "red", size = 1) +
+  labs(
+    title = "World Carbon Emissions from 1990 to 2020",
+    x = "Year",
+    y = expression("CO"[2] ~ "Emissions (10"^6 ~ "kg/m"^2*")")
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r}
+df <- emissions_df |> filter(Year == 2018)
+
+ggplot(df, aes(x= CO2_Emissions)) +
+geom_histogram() +
+labs(
+  title = "Ridge Plot Example",
+  x = "Value",
+  y = "Category"
+) +
+theme_minimal()
+```
+
+### Continent-Wise CO<sub>2</sub> Emissions Over 3 Decades
+```{r}
+#| warning: false
 
 emissions_df_g1 <- emissions_df
 
@@ -47,8 +87,6 @@ The amount of CO<sub>2</sub> emissions in Africa slightly increased each decade,
 ### Biplot to understand relationships between contributing factors
 ```{r}
 #| warning: false
-#| fig.height: 8
-library(redav)
 
 emissions_df_g2 <- emissions_df
 emissions_df_g2[is.na(emissions_df)] <- 0
@@ -56,6 +94,37 @@ draw_biplot(emissions_df_g2, points = FALSE) +
   labs(title = "Biplot of CO"[2] ~ "Emissions Data")
 ```
 Using the biplot above we can analyze the relationship of different features that contribute to CO<sub>2</sub> emissions. We can observe that Imports, Exports and GDP are highly correlated to the amount of CO<sub>2</sub> emissions, while Fossil Fuel Consumption shows a positive correlation. Livestock Production is almost at a 90 degrees angle to the CO<sub>2</sub> emissions vector and therefore we can say that there is no correlation between the two. Features such as Air Pollution and Renewable Energy have a negative correlation. Air pollution having a negative correlation could be due to the fact that air pollutants are made up of more than just CO<sub>2</sub>, air pollutants also include sulphur dioxide, nitrous oxide, carbon monoxide, etc. which have significantly reduced over the years.
+
+
+### Analyzing the effect of importing and exporting with respect to carbon emissions
+```{r}
+emissions_ie <- emissions_df |>
+  filter(Year == 2020) |>
+  select(Imports, Exports, CO2_Emissions) |> 
+  drop_na() |>
+  arrange(desc(CO2_Emissions)) |>
+  slice(10:100)    
+  
+emissions_ie <-  pivot_longer(emissions_ie, cols=c(Imports, Exports), names_to="Trade", values_to="Measure")
+
+print(emissions_ie)
+
+emissions_ie["Measure"] <- round(emissions_ie["Measure"] / 10^10)
+
+
+ggplot(emissions_ie, aes(x = Measure, y = CO2_Emissions)) +
+  geom_point() +
+  facet_wrap(~Trade) +
+  labs(title = expression("Export Import"), x = "Measure of goods", y = "Aggregate CO2 Emissions (megatonnes")
+
+# ggplot(emissions_ie, aes(x = Measure, y = CO2_Emissions, color = Trade)) +
+#   geom_point() +
+#   labs(title = expression("Continent-Wise CO"[2] ~ "Emissions Over 3 Decades"), x = "Measure of goods", y = "Aggregate CO2 Emissions (megatonnes")
+
+
+print(emissions_ie)
+```
+
 
 ### Analyzing the Trend of CO<sub>2</sub> Emissions and Forest Area over 30 Years
 ```{r}
@@ -177,3 +246,148 @@ ggplot(aggregated_data, aes(x = Year)) +
 
 ```
 The values for 2016-2020 are missing for fossil fuel consumption, hence this analysis is done for the years 1990-2015. From the graph above, we can see the fossil fuel consumption remains almost constant throughout the years (on the higher end) and the CO<sub>2</sub> emissions steadily increase reflecting the rising global energy demand. Fossil fuels remain as the primary source of energy from 1990 to present and have contributed to increase in global CO<sub>2</sub> emissions. The drop in values in 2015 is due to scaling and represents that both CO<sub>2</sub> emissions and fossil fuel consumption were the lowest in this year.
+
+
+### Top 3 and bottom 3 renewable sources of energy
+```{r}
+amazon_countries <- c("BRA", "PER", "BOL", "ECU", "COL", "VEN", "GUF", "GUY", "SUR")
+
+emissions_df_amazon <- emissions_df|> 
+  filter(Country.Code %in% amazon_countries)
+
+# We do not have data for French Guiana so we will go ahead and account for the rest of the 8 countries in the Amazon Rainforest
+# The filtered dataset does not have missing values for Forest Area and CO2 Emissions
+
+# aggregating CO2 emissions and Forest Area by Year
+aggregated_data <- emissions_df_amazon |>
+  group_by(Year) |>
+  summarize(
+    Total_CO2 = sum(CO2_Emissions),
+    Total_Forest_Area = sum(Forest_Area)
+  )
+
+# Scaling the data
+aggregated_data <- aggregated_data |>
+  mutate(
+    Scaled_CO2 = (Total_CO2 - min(Total_CO2)) / (max(Total_CO2) - min(Total_CO2)),
+    Scaled_Forest_Area = (Total_Forest_Area - min(Total_Forest_Area)) / (max(Total_Forest_Area) - min(Total_Forest_Area))
+  )
+
+ggplot(aggregated_data, aes(x = Year)) +
+  geom_line(aes(y = Scaled_CO2, color = "CO2 Emissions (Mt)")) +
+  geom_line(aes(y = Scaled_Forest_Area, color = "Forest Area (%)")) +
+  scale_color_manual(values = c("CO2 Emissions (Mt)" = "red", "Forest Area (%)" = "#228B22")) +
+  labs(
+    title = "CO"[2] ~ "Emissions and Forest Area Trend in the Amazon Rainforest (1990-2020)",
+    x = "Year",
+    y = "Scaled Values",
+    color = "Legend"
+  ) +
+  theme(legend.position = "right")
+
+```
+Through this graph we wanted to investigate how the Amazon Rainforest has been impacted by deforestation and other human activities, and if this has impacted the CO<sub>2</sub> emissions in the rainforest. Using the visualization above, we notice a clear trend of forest area dramatically reducing and CO<sub>2</sub> emissions steadily increasing (with the exception of years 2015-2020). This confirms the fact that the depletion of the Amazon rainforest, one of the largest carbon sinks in the world has caused an increase in CO<sub>2</sub> emissions, with the highest emissions being released in 2014.
+
+### Determining if countries with larger GDP use more renewable energy
+```{r}
+sorted_emissions <- emissions_df |>
+  filter(Year == 2018) |>
+  select(Country.Name, Renewable_Energy, GDP) |> drop_na() |> arrange(desc(GDP))
+
+# emissions_renewable <- emissions_renewable |>
+#   slice_head(n = 20)
+# 
+# ggplot(emissions_renewable, aes(x = Renewable_Energy, y = GDP)) +
+#   geom_point(size = 3) 
+
+# Obtaining the top 3 and bottom 3 countries in accordance with livestock production
+# sorted_emissions <- emissions_renewable |>
+#   arrange(desc(Renewable_Energy))
+# 
+top_3_countries <- sorted_emissions |>
+  slice_head(n = 3)
+print(top_3_countries)
+bottom_3_countries <- sorted_emissions |>
+  slice_tail(n = 3)
+print(bottom_3_countries)
+# 
+combined_df <- bind_rows(top_3_countries |> mutate(Group = "Countries with Highest Production"),
+                         bottom_3_countries |> mutate(Group = "Countries with Lowest Production"))
+# 
+# ggplot(combined_df, aes(x = Renewable_Energy, y = GDP, color = Group)) +
+#   geom_point(size = 3) +
+#   geom_text(aes(label = Country.Name), vjust = -1, size = 3, show.legend = FALSE) +
+#   scale_color_manual(values = c("Countries with Highest Production" = "darkgreen", "Countries with Lowest Production" = "darkorange")) +
+#   labs(
+#     title = "CO"[2] ~ "Emissions over Countries with Lowest and Highest Livestock Production",
+#     x = "Renewable Energy",
+#     y = "GDP",
+#     color = "Group"
+#   ) +
+#   theme(legend.position = "bottom")
+
+ggplot(combined_df, aes(x = Renewable_Energy, y = GDP, fill = Group)) +
+  geom_boxplot() +
+  labs(
+    title = "Boxplot by Group",
+    x = "Renewable Energy Pecentage",
+    y = "GDP"
+  ) +
+  theme_minimal()
+
+
+
+```
+ ### CO2 emissions aggregate 2019 vs 2020
+ 
+```{r}
+emissions_covid <- emissions_df |>
+  filter(Year == c(2019, 2020)) |>
+  select(Year, CO2_Emissions) |>
+  arrange(desc(CO2_Emissions))
+
+emissions_covid <- emissions_covid |>
+  slice_head(n = 10)
+# print(emissions_covid)
+ 
+emissions_covid$Year <- factor(emissions_covid$Year) 
+print(emissions_covid)
+
+# start_index <- (nrow(emissions_covid) - 100) / 2 + 1
+# end_index <- start_index + 99
+
+# print(end_index)
+
+emissions_covid <- emissions_covid[3:10, ]
+  
+# ggplot(emissions_covid, aes(x = CO2_Emissions, y = Year, fill = Year)) +
+# geom_density_ridges(alpha = 0.8) +
+# labs(
+#   title = "Ridge Plot Example",
+#   x = "Value",
+#   y = "Category"
+# ) +
+# theme_minimal()
+
+# ggplot(emissions_covid, aes(x = CO2_Emissions, color = Year)) +
+#   geom_line(size = 1.2) +
+#   labs(
+#     title = "Overlapping Density Curves",
+#     x = "Value",
+#     y = "Density",
+#     color = "Group"
+#   ) +
+#   theme_minimal()
+
+ggplot(emissions_covid, aes(x = Year, y = CO2_Emissions, fill = Year)) +
+  geom_boxplot() +
+  labs(
+    title = "CO2 Emissions before and after covid",
+    x = "Year",
+    y = "CO2_Emissions"
+  ) +
+  theme_minimal()
+```
+ 
+ 
+ 
