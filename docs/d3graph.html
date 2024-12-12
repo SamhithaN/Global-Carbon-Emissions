@@ -170,14 +170,57 @@ ul.task-list li input[type="checkbox"] {
 
 
 <style>
-  * {
-    font-family: sans-serif;
+  .slider-container {
+      text-align: center;
+      margin: 20px;
+  }
+  .axis text {
+      font-size: 12px;
+  }
+  .chart-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+  }
+  .legend-container {
+      text-align: center;
+      margin-top: 20px;
+  }
+  .legend-item {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 10px;
+  }
+  .legend-rect {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+  }
+  .axis-title {
+      font-size: 14px;
+      text-anchor: middle;
   }
 </style>
-<div id="plot">
+<div class="chart-title">
+Forest Area and CO2 Emissions in Countries of the Amazon Rainforest
+</div>
+<div id="chart">
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<div class="slider-container">
+<pre><code>&lt;label for="yearSlider"&gt;Change Years: &lt;span id="yearLabel"&gt;2000&lt;/span&gt;&lt;/label&gt;&lt;br&gt;
+&lt;input type="range" id="yearSlider" min="2000" max="2020" value="2000" step="1"&gt;</code></pre>
+</div>
+<div class="legend-container">
+<pre><code>&lt;div class="legend-item"&gt;
+    &lt;div class="legend-rect" style="background-color: darkgreen;"&gt;&lt;/div&gt;Forest Area
+&lt;/div&gt;
+&lt;div class="legend-item"&gt;
+    &lt;div class="legend-rect" style="background-color: darkred;"&gt;&lt;/div&gt;CO2 Emissions
+&lt;/div&gt;</code></pre>
+</div>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="scripts/myscript.js"></script>
 
 

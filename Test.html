@@ -13,23 +13,55 @@
         .axis text {
             font-size: 12px;
         }
+        .chart-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .legend-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .legend-rect {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        .axis-title {
+            font-size: 14px;
+            text-anchor: middle;
+        }
     </style>
 </head>
 <body>
+    <div class="chart-title">Forest Area and CO2 Emissions in Countries of the Amazon Rainforest</div>
+    <div id="chart"></div>
+
     <div class="slider-container">
-        <label for="yearSlider">Year: <span id="yearLabel">2000</span></label><br>
+        <label for="yearSlider">Change Years: <span id="yearLabel">2000</span></label><br>
         <input type="range" id="yearSlider" min="2000" max="2020" value="2000" step="1">
     </div>
 
-    <div id="chart"></div>
+    <div class="legend-container">
+        <div class="legend-item">
+            <div class="legend-rect" style="background-color: darkgreen;"></div>Forest Area
+        </div>
+        <div class="legend-item">
+            <div class="legend-rect" style="background-color: darkred;"></div>CO2 Emissions
+        </div>
+    </div>
 
     <script>
-        // Dimensions
-        const margin = { top: 20, right: 20, bottom: 50, left: 50 };
+        const margin = { top: 20, right: 40, bottom: 70, left: 70 };
         const width = 600 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
-        // SVG container
         const svg = d3.select("#chart")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -37,85 +69,63 @@
             .append("g")
             .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-        // Scales
         const x0 = d3.scaleBand().range([0, width]).padding(0.2); // Group scale
         const x1 = d3.scaleBand().padding(0.1); // Bar scale within groups
         const y = d3.scaleLinear().range([height, 0]);
 
         const color = d3.scaleOrdinal()
             .domain(["Forest_Area", "CO2_Emissions"])
-            .range(["#1f77b4", "#ff7f0e"]); // Colors for the bars
+            .range(["darkgreen", "darkred"]); // Updated colors
 
-        // Axes
         const xAxis = svg.append("g").attr("transform", `translate(0, ${height})`);
         const yAxis = svg.append("g");
 
-        // Legend
-        const legend = svg.append("g")
-            .attr("transform", `translate(${width - 100}, 10)`);
+        svg.append("text")
+            .attr("class", "axis-title")
+            .attr("transform", `translate(${width / 2}, ${height + 50})`)
+            .text("Amazon Rainforest Countries");
 
-        legend.selectAll("rect")
-            .data(["Forest_Area", "CO2_Emissions"])
-            .enter()
-            .append("rect")
-            .attr("x", 0)
-            .attr("y", (d, i) => i * 20)
-            .attr("width", 15)
-            .attr("height", 15)
-            .attr("fill", d => color(d));
+        svg.append("text")
+            .attr("class", "axis-title")
+            .attr("transform", `rotate(-90)`)
+            .attr("x", -height / 2)
+            .attr("y", -50)
+            .text("Scaled Values");
 
-        legend.selectAll("text")
-            .data(["Forest_Area", "CO2_Emissions"])
-            .enter()
-            .append("text")
-            .attr("x", 20)
-            .attr("y", (d, i) => i * 20 + 12)
-            .text(d => d);
-
-        // Load CSV data
         d3.csv("co2_forest.csv").then(data => {
-            // Convert data types
             data.forEach(d => {
                 d.Year = +d.Year;
                 d.Forest_Area = +d.Forest_Area;
                 d.CO2_Emissions = +d.CO2_Emissions;
             });
 
-            // Extract unique years and countries
             const years = [...new Set(data.map(d => d.Year))];
             const countries = [...new Set(data.map(d => d["Country.Name"]))];
 
-            // Set slider year range dynamically
             const yearSlider = d3.select("#yearSlider")
                 .attr("min", d3.min(years))
                 .attr("max", d3.max(years))
                 .attr("value", d3.min(years));
 
-            // Function to update chart
             function updateChart(year) {
                 const yearData = data.filter(d => d.Year === year);
 
-                // Set domains
                 x0.domain(yearData.map(d => d["Country.Name"]));
                 x1.domain(["Forest_Area", "CO2_Emissions"]).range([0, x0.bandwidth()]);
                 y.domain([0, d3.max(yearData, d => Math.max(d.Forest_Area, d.CO2_Emissions))]);
 
-                // Add axes
                 xAxis.transition().call(d3.axisBottom(x0));
                 yAxis.transition().call(d3.axisLeft(y));
 
-                // Bind data to bars
                 const groups = svg.selectAll(".group")
                     .data(yearData, d => d["Country.Name"]);
 
-                // Enter and merge groups
                 const bars = groups.enter()
                     .append("g")
                     .attr("class", "group")
                     .attr("transform", d => `translate(${x0(d["Country.Name"])}, 0)`)
                     .merge(groups);
 
-                // Create bars
                 const barUpdate = bars.selectAll("rect")
                     .data(d => ["Forest_Area", "CO2_Emissions"].map(key => ({ key, value: d[key] })));
 
@@ -134,10 +144,8 @@
                 groups.exit().remove();
             }
 
-            // Initialize chart
             updateChart(d3.min(years));
 
-            // Slider interaction
             yearSlider.on("input", function () {
                 const year = +this.value;
                 d3.select("#yearLabel").text(year);

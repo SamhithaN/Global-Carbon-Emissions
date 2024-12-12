@@ -1,38 +1,56 @@
 # Interactive graph
 
-```{r}
-#creating the dataset for the interactive graph
-
-emissions <- read.csv("emission_analysis.csv")
-
-amazon_countries <- c("BRA", "PER", "BOL", "ECU", "COL", "VEN", "GUY", "SUR")
-
-emissions_amazon <- emissions|> 
-  filter(Country.Code %in% amazon_countries, Year >= 2000, Year <= 2020) |>
-  select(Country.Code, Country.Name, Year, `Forest_Area`, `CO2_Emissions`)
-
-emissions_amazon_scaled <- emissions_amazon |>
-  group_by(Country.Code) |>
-  mutate(
-    Forest_Area = (Forest_Area - min(Forest_Area, na.rm = TRUE)) / 
-                         (max(Forest_Area, na.rm = TRUE) - min(Forest_Area, na.rm = TRUE)),
-    CO2_Emissions = (CO2_Emissions - min(CO2_Emissions, na.rm = TRUE)) / 
-                           (max(CO2_Emissions, na.rm = TRUE) - min(CO2_Emissions, na.rm = TRUE))
-  ) |>
-  ungroup()
-
-write.csv(emissions_amazon_scaled, "co2_forest.csv")
-
-```
-
 <style>
-  * {
-    font-family: sans-serif;
+  .slider-container {
+      text-align: center;
+      margin: 20px;
   }
-</style> 
+  .axis text {
+      font-size: 12px;
+  }
+  .chart-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+  }
+  .legend-container {
+      text-align: center;
+      margin-top: 20px;
+  }
+  .legend-item {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 10px;
+  }
+  .legend-rect {
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+  }
+  .axis-title {
+      font-size: 14px;
+      text-anchor: middle;
+  }
+</style>
 
-<div id="plot">
+<div class="chart-title">Forest Area and CO2 Emissions in Countries of the Amazon Rainforest</div>
+<div id="chart"></div>
+
+<div class="slider-container">
+    <label for="yearSlider">Change Years: <span id="yearLabel">2000</span></label><br>
+    <input type="range" id="yearSlider" min="2000" max="2020" value="2000" step="1">
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<div class="legend-container">
+    <div class="legend-item">
+        <div class="legend-rect" style="background-color: darkgreen;"></div>Forest Area
+    </div>
+    <div class="legend-item">
+        <div class="legend-rect" style="background-color: darkred;"></div>CO2 Emissions
+    </div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="scripts/myscript.js"></script>
+
