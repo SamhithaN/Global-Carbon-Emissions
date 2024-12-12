@@ -1,5 +1,63 @@
-// add your JavaScript/D3 to this file
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grouped Bar Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .slider-container {
+            text-align: center;
+            margin: 20px;
+        }
+        .axis text {
+            font-size: 12px;
+        }
+        .chart-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .legend-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .legend-rect {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        .axis-title {
+            font-size: 14px;
+            text-anchor: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-title">Forest Area and CO2 Emissions in Countries of the Amazon Rainforest</div>
+    <div id="chart"></div>
 
+    <div class="slider-container">
+        <label for="yearSlider">Change Years: <span id="yearLabel">2000</span></label><br>
+        <input type="range" id="yearSlider" min="2000" max="2020" value="2000" step="1">
+    </div>
+
+    <div class="legend-container">
+        <div class="legend-item">
+            <div class="legend-rect" style="background-color: darkgreen;"></div>Forest Area
+        </div>
+        <div class="legend-item">
+            <div class="legend-rect" style="background-color: darkred;"></div>CO2 Emissions
+        </div>
+    </div>
+
+    <script>
         const margin = { top: 20, right: 40, bottom: 70, left: 70 };
         const width = 600 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
@@ -94,3 +152,6 @@
                 updateChart(year);
             });
         }).catch(err => console.error("Error loading data:", err));
+    </script>
+</body>
+</html>

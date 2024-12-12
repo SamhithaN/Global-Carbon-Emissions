@@ -80,13 +80,13 @@ aggregated_data <- emissions_df_amazon |>
   )
 
 # Scaling the data
-aggregated_data <- aggregated_data |>
+aggregated_data_scaled <- aggregated_data |>
   mutate(
     Scaled_CO2 = (Total_CO2 - min(Total_CO2)) / (max(Total_CO2) - min(Total_CO2)),
     Scaled_Forest_Area = (Total_Forest_Area - min(Total_Forest_Area)) / (max(Total_Forest_Area) - min(Total_Forest_Area))
   )
 
-ggplot(aggregated_data, aes(x = Year)) +
+ggplot(aggregated_data_scaled, aes(x = Year)) +
   geom_line(aes(y = Scaled_CO2, color = "CO2 Emissions (Mt)")) +
   geom_line(aes(y = Scaled_Forest_Area, color = "Forest Area (%)")) +
   scale_color_manual(values = c("CO2 Emissions (Mt)" = "red", "Forest Area (%)" = "#228B22")) +
