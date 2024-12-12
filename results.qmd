@@ -17,7 +17,7 @@ emissions_df = read.csv("emission_analysis.csv")
 ```
 
 
-### Time Series Analysis of Global CO<sub>2</sub> Emissions from 1990 to 2020
+## Time Series Analysis of Global CO<sub>2</sub> Emissions from 1990 to 2020
 ```{r}
 #| warning: false
 
@@ -43,7 +43,7 @@ There is sharper increase of C0<sub>2</sub> emissions between 2003 to 2013. This
 
 A notable exception to this trend occurred in 2020, when global CO2 emissions decreased by approximately 5% due to widespread lockdowns and economic slowdowns caused by the COVID-19 pandemic.
 
-### Continent-Wise CO<sub>2</sub> Emissions Over 3 Decades
+## Continent-Wise CO<sub>2</sub> Emissions Over 3 Decades
 ```{r}
 #| warning: false
 
@@ -81,7 +81,7 @@ The amount of CO<sub>2</sub> emissions in Asia steadily increased each decade an
 However, the amount of CO<sub>2</sub> emissions in Europe decreased over each decade, having its highest emissions in 1990-2000. This shows a slow down in CO<sub>2</sub> emission activity in this continent.
 The amount of CO<sub>2</sub> emissions in Africa slightly increased each decade, while they remained almost the same in the Americas and Oceania from 1990-2020.
 
-### A Chloropleth Map of Average CO<sub>2</sub> Emissions Over 3 decades
+## A Chloropleth Map of Average CO<sub>2</sub> Emissions Over 3 decades
 ```{r}
 #| fig-height: 7
 #| fig-width: 15
@@ -93,7 +93,7 @@ world_map <- map_data("world")
 country_co2$name <- countrycode(country_co2$Country.Code, "iso3c", "country.name")
 
 # The world map data contains only country names and not the country codes. The below manual alteration of country names is required to match the countries onto the world map.
-# country_co2$mean_emissions[is.na(country_co2$mean_emissions)] <- 0
+
 country_co2 <- country_co2 %>%
   mutate(name = ifelse(name == "United States", "USA", name))
 country_co2 <- country_co2 %>%
@@ -126,7 +126,7 @@ It can be observed that China is the leading nation of carbon emissions followed
 
 It's worth noting that Antarctica, depicted in gray, accurately reflects the absence of significant human activity and, consequently, negligible carbon emissions. As carbon emissions are primarily a result of human activities, regions with minimal human population, such as Antarctica, have minimal impact on global emissions.
 
-### Biplot to understand relationships between contributing factors
+## Biplot to understand relationships between contributing factors
 ```{r}
 #| warning: false
 
@@ -138,7 +138,7 @@ draw_biplot(emissions_df_g2, points = FALSE) +
 Using the biplot above we can analyze the relationship of different features that contribute to CO<sub>2</sub> emissions. We can observe that Imports, Exports and GDP are highly correlated to the amount of CO<sub>2</sub> emissions, while Fossil Fuel Consumption shows a positive correlation. Livestock Production is almost at a 90 degrees angle to the CO<sub>2</sub> emissions vector and therefore we can say that there is no correlation between the two. Features such as Air Pollution and Renewable Energy have a negative correlation. Air pollution having a negative correlation could be due to the fact that air pollutants are made up of more than just CO<sub>2</sub>, air pollutants also include sulphur dioxide, nitrous oxide, carbon monoxide, etc, which have significantly reduced over the years.
 
 
-### Analyzing the effect of importing and exporting on carbon emissions
+## Analyzing the effect of importing and exporting on carbon emissions
 ```{r}
 emissions_ie <- emissions_df |>
   filter(Year == 2020) |>
@@ -159,7 +159,7 @@ This graph compares the relationship between the volume of goods and carbon emis
 
 Exports show a more exponential growth in emissions at higher levels. This is possibly due to energy-intensive production or transportation processes for the exporting of goods. The increase in emissions with imports is steadier and slightly less steep compared to exports. This suggests that importing may involve less direct emission-intensive activities, likely because the carbon cost of production occurs elsewhere. In both panels, the confidence intervals (the shaded regions around the trend lines) are narrow at lower volumes and widen slightly at higher volumes, indicating higher variability in emissions for larger trade activities.
 
-### Analyzing the Trend of CO<sub>2</sub> Emissions and Forest Area over 30 Years
+## Analyzing the Trend of CO<sub>2</sub> Emissions and Forest Area over 30 Years
 ```{r}
 #| fig-width: 8
 
@@ -204,7 +204,7 @@ ggplot(aggregated_data, aes(x = Year)) +
 ```
 Through this graph we wanted to investigate how the Amazon Rainforest has been impacted by deforestation and other human activities, and if this has impacted the CO<sub>2</sub> emissions in the rainforest. Using the visualization above, we notice a clear trend of forest area dramatically reducing and CO<sub>2</sub> emissions steadily increasing (with the exception of years 2015-2020). This confirms the fact that the depletion of the Amazon rainforest, one of the largest carbon sinks in the world has caused an increase in CO<sub>2</sub> emissions, with the highest emissions being released in 2014.
 
-### Determining if Livestock Production Contributes to CO<sub>2</sub> emissions
+## Determining if Livestock Production Contributes to CO<sub>2</sub> emissions
 The effect of livestock production on CO<sub>2</sub> emissions is currently being studied and debated. We have investigated this topic using the graph below
 Source: https://sentientmedia.org/how-does-livestock-affect-climate-change/
 ```{r}
@@ -247,7 +247,7 @@ ggplot(combined_df, aes(x = Total_Livestock, y = Total_CO2, color = Group)) +
 ```
 We have visualized the emissions of the countries with lowest and highest livestock production and observe that there is no clear relationship between CO<sub>2</sub> emissions and livestock production. Countries with the highest livestock production (St. Kitts and Nevis & Antigua and Barbuda) have the lowest emissions. Countries with the lowest livestock production have higher emissions. Kuwait which has livestock production on the lower end is observed to have the highest emissions. The absence of a clear correlation could be because livestock production activities mainly release a substantial amount of methane as a pollutant as compared to CO<sub>2</sub>.
 
-### Analyzing the Trend of CO<sub>2</sub> Emissions and Fossil Fuel Consumption over 30 Years
+## Analyzing the Trend of CO<sub>2</sub> Emissions and Fossil Fuel Consumption over 30 Years
 ```{r}
 emissions_df_fuel <- emissions_df
 
@@ -281,7 +281,7 @@ ggplot(aggregated_data, aes(x = Year)) +
 ```
 The values for 2016-2020 are missing for fossil fuel consumption, hence this analysis is done for the years 1990-2015. From the graph above, we can see the fossil fuel consumption remains almost constant throughout the years (on the higher end) and the CO<sub>2</sub> emissions steadily increase reflecting the rising global energy demand. Fossil fuels remain as the primary source of energy from 1990 to present and have contributed to increase in global CO<sub>2</sub> emissions. The drop in values in 2015 is due to scaling and represents that both CO<sub>2</sub> emissions and fossil fuel consumption were the lowest in this year.
 
-### CO<sub>2</sub> emissions during the worldwide lockdown in 2020 for the top 10 countries
+## CO<sub>2</sub> emissions during the worldwide lockdown in 2020 for the top 10 countries
  
 ```{r}
 #| warning: FALSE
@@ -297,14 +297,15 @@ emissions_covid <- emissions_covid[3:13, ]
 ggplot(emissions_covid, aes(x = Year, y = CO2_Emissions)) +
   geom_boxplot() +
   labs(
-    title = "CO2 Emissions before and during the 2020 lockdown",
+    title = "CO"[2] ~ "Emissions Before and After the 2020 Lockdown",
     x = "Year",
     y = "CO"[2] ~ "(10"^ 6~ "kg)") +
   theme_minimal()
 ```
+The graph provides a visual comparison of CO2 emissions before and during the 2020 lockdown. It utilizes box plots to represent the distribution of emissions data for each year. The median CO<sub>2</sub> emissions in 2019 were higher than those in 2020. This indicates that CO<sub>2</sub> emissions were lower during the lockdown year on average. The box plots show the range and variability of CO<sub>2</sub> emissions within 2019 is wider, meaning there was a larger spread of emissions compared to 2020. The graph suggests that the 2020 lockdown had a noticeable impact on CO2 emissions. The decrease in median emissions and the reduced variability in 2020 reflects the global reduction in economic activity and energy consumption during that period.
 
 
-### Data Transparency and Economic Development: A Comparative Analysis
+## Data Transparency and Economic Development: A Comparative Analysis
 ```{r}
 #| warning: FALSE
 #| fig-width: 10
@@ -328,11 +329,10 @@ mean_GDP = median(emissions_df$GDP, na.rm = TRUE) / 10^9
 
 ggplot(missing_GDP, aes(x = avg_GDP, y = Country.Name)) +
   geom_bar(stat = "identity", fill = "skyblue") +
-  labs(title = "Top 10 Nations with Limited CO"[2] ~ "Emission Reporting and their GDP", x = "GDP (USD Billion)", y = "Country Code") +
+  labs(title = "Top 20 Nations with Limited CO"[2] ~ "Emission Reporting and their GDPs", x = "GDP (USD Billion)", y = "Country Name") +
   geom_vline(xintercept = mean_GDP, color = "red", linetype = "solid", size = 1) +
    annotate("text", x=mean_GDP, y = 1, color = "red", label="World Median GDP", angle = 90, vjust = -1, hjust = -1) + 
   theme_minimal()
 
 ```
-
-
+The graph depicts the top 20 countries that failed to report their carbon emissions data to the United Nations, either in the past or are continuing to do so. The data for carbon emissions and some of the other fields like air pollution, exports, forest area, fossil fuel energy, GDP, imports are missing for these countries. Notably, these nations exhibit GDPs well under the global median, suggesting limited economic development and industrialization. This economic constraint may hinder their capacity to implement robust data collection and reporting systems. Several small island nations are included in this list, which typically have limited industrial capacity and rely heavily on imported goods, further contributing to their lower GDPs and potentially lower carbon footprints. The lack of consistent data reporting to the UN makes it difficult to accurately assess these countries' true carbon footprints. Overall, the graph highlights the need for improved data transparency and international cooperation to address climate change, particularly in countries with limited reporting capabilities.
