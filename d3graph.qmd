@@ -1,5 +1,30 @@
 # Interactive graph
 
+```{r}
+#creating the dataset for the interactive graph
+
+emissions <- read.csv("emission_analysis.csv")
+
+amazon_countries <- c("BRA", "PER", "BOL", "ECU", "COL", "VEN", "GUY", "SUR")
+
+emissions_amazon <- emissions|> 
+  filter(Country.Code %in% amazon_countries, Year >= 2000, Year <= 2020) |>
+  select(Country.Code, Country.Name, Year, `Forest_Area`, `CO2_Emissions`)
+
+emissions_amazon_scaled <- emissions_amazon |>
+  group_by(Country.Code) |>
+  mutate(
+    Forest_Area = (Forest_Area - min(Forest_Area, na.rm = TRUE)) / 
+                         (max(Forest_Area, na.rm = TRUE) - min(Forest_Area, na.rm = TRUE)),
+    CO2_Emissions = (CO2_Emissions - min(CO2_Emissions, na.rm = TRUE)) / 
+                           (max(CO2_Emissions, na.rm = TRUE) - min(CO2_Emissions, na.rm = TRUE))
+  ) |>
+  ungroup()
+
+write.csv(emissions_amazon_scaled, "co2_forest.csv")
+
+```
+
 <style>
   * {
     font-family: sans-serif;
