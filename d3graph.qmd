@@ -1,5 +1,8 @@
 # Interactive graph
 
+<html lang="en">
+<head>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
   .slider-container {
       text-align: center;
@@ -33,24 +36,22 @@
       text-anchor: middle;
   }
 </style>
+</head>
 
-<div class="chart-title">Forest Area and CO2 Emissions in Countries of the Amazon Rainforest</div>
+<body>
+<div class="chart-title">Forest Area and CO<sub>2</sub> Emissions in Countries of the Amazon Rainforest</div>
 <div id="chart"></div>
 
-<div class="slider-container">
-    <label for="yearSlider">Change Years: <span id="yearLabel">2000</span></label><br>
-    <input type="range" id="yearSlider" min="2000" max="2020" value="2000" step="1">
-</div>
-
 <div class="legend-container">
-    <div class="legend-item">
-        <div class="legend-rect" style="background-color: darkgreen;"></div>Forest Area
-    </div>
-    <div class="legend-item">
-        <div class="legend-rect" style="background-color: darkred;"></div>CO2 Emissions
-    </div>
 </div>
 
-<script src="https://d3js.org/d3.v7.min.js"></script>
+<div <p><br>This graph helps us understand the impact of deforestation in the Amazon Rainforest over 20 years. Interact to learn how % forest area has reduced and CO<sub>2</sub> emissions have increased</p>
+</div>
+
+<div class="slider-container">
+</div>
+
 <script src="scripts/myscript.js"></script>
 
+</body>
+</html>

@@ -5,7 +5,7 @@
 ### Data Sources
 Website: The World Bank Group
 
-To analyze country-wise CO<sub>2</sub> emissions, various metrics that influence and correlate with CO<sub>2</sub> release have been considered. The dataset includes information on forest area percentage, fossil fuel consumption percentage, trade metrics (imports and exports), livestock production, and air pollution levels. Additionally, data on countries' income levels, GDP, and renewable energy usage has been gathered to examine the factors and trends contributing to CO<sub>2</sub> emissions.
+To analyze country-wise CO<sub>2</sub> emissions, various metrics that influence and correlate with CO<sub>2</sub> release have been considered. The dataset includes information on forest area percentage, fossil fuel consumption percentage, trade metrics (imports and exports), livestock production, and air pollution levels. Additionally, data on countries' GDP and renewable energy usage has been gathered to examine the factors and trends contributing to CO<sub>2</sub> emissions.
 
 The raw data from the World Bank Group website was downloaded as CSV files.
 
@@ -20,7 +20,6 @@ The raw data from the World Bank Group website was downloaded as CSV files.
 - [Air Pollution](https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3)
 - [GDP](https://data.worldbank.org/indicator/NY.GDP.MKTP.CD)
 - [Renewable Energy Consumption](https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS)
-- **Income Level**: Obtained from the zip folder as a separate CSV file after downloading the data
 
 ### Data Format
 - Carbon Emissions: A measure of annual emissions of carbon dioxide (CO2) in megatonnes, one of the six Kyoto greenhouse gases (GHG) from 1970 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.
@@ -40,8 +39,6 @@ The raw data from the World Bank Group website was downloaded as CSV files.
 - GDP: The annual gross domestic product in US dollars from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.
 
 - Renewable Energy Consumption: The share of renewables energy in total final energy consumption measured by the percentage of total energy consumption from 1960 to 2023 for 266 countries and regions. The dataset contains Country Name, Country Code, Indicator Name, Indicator Code, and the Years.
-
-- Income Level: A dataset indicating the income level of countries as High, Low, Upper Middle, and Lower Middle income for 265 countries and regions. The dataset contains the Conutry Code, Region, Income Group, Special Notes and Table Name.
 
 ### Data Preprocessing
 After importing the data:
