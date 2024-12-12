@@ -54,7 +54,7 @@
     "href": "d3graph.html",
     "title": "4  Interactive graph",
     "section": "",
-    "text": "Forest Area and CO2 Emissions in Countries of the Amazon Rainforest\n\n\n\n\n\n&lt;label for=\"yearSlider\"&gt;Change Years: &lt;span id=\"yearLabel\"&gt;2000&lt;/span&gt;&lt;/label&gt;&lt;br&gt;\n&lt;input type=\"range\" id=\"yearSlider\" min=\"2000\" max=\"2020\" value=\"2000\" step=\"1\"&gt;\n\n\n&lt;div class=\"legend-item\"&gt;\n    &lt;div class=\"legend-rect\" style=\"background-color: darkgreen;\"&gt;&lt;/div&gt;Forest Area\n&lt;/div&gt;\n&lt;div class=\"legend-item\"&gt;\n    &lt;div class=\"legend-rect\" style=\"background-color: darkred;\"&gt;&lt;/div&gt;CO2 Emissions\n&lt;/div&gt;",
+    "text": "Forest Area and CO2 Emissions in Countries of the Amazon Rainforest",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interactive graph</span>"
     ]
